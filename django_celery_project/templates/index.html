@@ -2,9 +2,10 @@
 
     {% block content %}
     <div class = "products_display_parent">
-        {% for product in products_list %}
+        {% for product in products_all  %}
             <div>
-                {{ product.image }}<br>
+                <img src="{{ product.image }}"/>
+                <br>
                 <h3>Hello</h3>
                 <h2><a>{{ product.name }}</a></h2>
             </div>

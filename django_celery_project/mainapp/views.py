@@ -5,11 +5,13 @@ from .models import *
 # Create your views here.
 
 def home(request):
-    return render(request, 'index.html')
+    db_result =Product.objects.all()
+    context = {'products_all': db_result}
+    return render(request, 'index.html', context)
 
 def product(request, product_id):
     db_result = Product.objects.get(id=product_id)
-    context = {product: db_result}
+    context = {'product': db_result}
 
     ## function to add to cart
     return render(request, 'product.html', context)
