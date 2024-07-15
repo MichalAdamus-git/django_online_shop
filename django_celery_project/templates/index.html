@@ -1,0 +1,14 @@
+{%   extends 'base.html'   %}
+
+    {% block content %}
+    <div class = "products_display_parent">
+        {% for product in products_list %}
+            <div>
+                {{ product.image }}<br>
+                <h3>Hello</h3>
+                <h2><a>{{ product.name }}</a></h2>
+            </div>
+        {% endfor %}
+
+    </div>
+    {% endblock content  %}

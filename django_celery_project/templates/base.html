@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Giga Uga Shop</title>
+    <link rel="stylesheet" href="{% static 'styles/components.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/responsee.css' %}">
+    <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="owl-carousel/owl.theme.css">     
+    <link rel="stylesheet" href="{% static 'styles/template-style.css' %}">
+    <link href='https://fonts.googleapis.com/css?family=Playfair+Display&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  </head>
+  
+  <body class="size-1140">
+  	<!-- PREMIUM FEATURES BUTTON -->
+  	<a target="_blank" class="hide-s" href="../template/eleganter-premium-responsive-business-template/" style="position:fixed;top:120px;right:-14px;z-index:10;"><img src="img/premium-features.png" alt=""></a>
+    <!-- HEADER -->
+    <header role="banner" class="position-absolute">    
+      <!-- Top Navigation -->
+      <nav class="background-transparent background-transparent-hightlight full-width sticky">
+        <div class="s-12 l-2">
+          <a href="index.html" class="logo">
+            <!-- Logo White Version -->
+            <img class="logo-white" src="img/logo.png" alt="">
+            <!-- Logo Dark Version -->
+            <img class="logo-dark" src="img/logo-dark.png" alt="">
+          </a>
+        </div>
+        <div class="top-nav s-12 l-10">
+          
+          <ul class="right chevron">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a>Services</a>
+              <ul>
+                <li><a>Service 1</a>
+                  <ul>
+                    <li><a>Service 1 A</a></li>
+                    <li><a>Service 1 B</a></li>
+                  </ul>
+                </li>
+                <li><a>Service 2</a></li>
+              </ul>
+            </li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+      {% block content %}
+      {%  endblock content  %}
+</body>
+</html>
