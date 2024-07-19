@@ -1,10 +1,10 @@
 {%   extends 'base.html'   %}
 
     {% block content %}
-    <div class = "products_display_parent">
+    <div class = "products-display-parent">
         {% for product in products_all  %}
-            <div>
-                <img src="{{ product.image }}"/>
+            <div class="products-display-child">
+                <img src="{{ product.image.url }}"/>
                 <br>
                 <h3>Hello</h3>
                 <h2><a>{{ product.name }}</a></h2>

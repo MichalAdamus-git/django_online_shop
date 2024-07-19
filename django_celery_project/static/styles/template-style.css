@@ -719,6 +719,16 @@ aside.aside-left {
   filter: progid:DXImageTransform.Microsoft.BasicImage(grayScale=0);
 }
 
+.header-div {
+    margin-bottom: 10px!important;
+}
+
+.main-content {
+    margin-left: 10px!important;
+    margin-top: 10px!important;
+    display:flex;
+    flex-direction: row;
+}
 
 /* Margins */
 .margin-top {

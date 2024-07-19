@@ -19,7 +19,8 @@
   	<!-- PREMIUM FEATURES BUTTON -->
   	<a target="_blank" class="hide-s" href="../template/eleganter-premium-responsive-business-template/" style="position:fixed;top:120px;right:-14px;z-index:10;"><img src="img/premium-features.png" alt=""></a>
     <!-- HEADER -->
-    <header role="banner" class="position-absolute">    
+    <div class="header-div">
+    <div role="banner" class="position-absolute">
       <!-- Top Navigation -->
       <nav class="background-transparent background-transparent-hightlight full-width sticky">
         <div class="s-12 l-2">
@@ -52,8 +53,11 @@
           </ul>
         </div>
       </nav>
-    </header>
+    </div>
+      </div>
+      <div class = 'main-content'>
       {% block content %}
       {%  endblock content  %}
+      </div>
 </body>
 </html>
