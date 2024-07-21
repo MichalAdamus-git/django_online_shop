@@ -51,8 +51,9 @@ def logout_page(request):
     return redirect('home')
 
 def cart_addition(request, product_id):
+    user = request.user
     product = Product.objects.get(pk=product_id)
-    current_cart, completed = Cart.objects.get_or_create(user=request.user)
+    current_cart, completed = Cart.objects.get_or_create(user)
     add_to_cart(product, current_cart)
     return redirect('home')
 
