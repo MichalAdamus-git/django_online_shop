@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .tasks import async_product_saving
+from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
 # Create your views here.
 
 def home(request):
-    db_result =Product.objects.all()
+    db_result = Product.objects.all()
     context = {'products_all': db_result}
     return render(request, 'index.html', context)
 
@@ -31,7 +31,7 @@ def login_page(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password = password)
-        if user != NONE:
+        if user != None:
             login(request, user)
             return redirect('home')
         else:
@@ -44,5 +44,17 @@ def register_page(request):
         if form.is_valid():
             form.save()
             return redirect('home')
-
     return render(request, 'register.html', context)
+
+def logout_page(request):
+    logout(request)
+    return redirect('home')
+
+def cart_addition(request, product_id):
+    product = Product.objects.get(pk=product_id)
+    current_cart, completed = Cart.objects.get_or_create(user=request.user)
+    add_to_cart(product, current_cart)
+    return redirect('home')
+
+def add_to_cart(product: Product, cart: Cart):
+    Cartitem.objects.create(product = product, cart = cart, quantity =1)

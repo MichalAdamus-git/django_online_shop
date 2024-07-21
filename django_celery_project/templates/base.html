@@ -47,7 +47,15 @@
                 <li><a>Service 2</a></li>
               </ul>
             </li>
-            <li><a href="about.html">About</a></li>
+            {% if request.user.is_authenticated %}
+            <li><a href="{% url 'logout_page' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login_page' %}">Login</a></li>
+            {% endif %}
+            <li><div>
+              <a class="cart-link" href="">Cart</a>
+              <img class="cart-image" src="{% static img/cart.jpg %}" />
+            </div></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>

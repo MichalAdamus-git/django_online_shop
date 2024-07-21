@@ -6,6 +6,13 @@ from django.contrib.auth.models import User
 
 class Category(models.Model):
     category_name = models.CharField(max_length=20)
+
+
+class Cart(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    completed = models.BooleanField(default=False)
+
+
 class Product(models.Model):
     name = models.CharField(max_length=20, default='Product')
     description = models.TextField(null=True)
@@ -40,6 +47,11 @@ class Product(models.Model):
                 super().save()
         else:
             super().save()
+class Cartitem(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=0)
+
             
 
 

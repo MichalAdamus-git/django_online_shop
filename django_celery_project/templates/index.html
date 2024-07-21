@@ -7,7 +7,8 @@
                 <img src="{{ product.image.url }}"/>
                 <br>
                 <h3>Hello</h3>
-                <h2><a>{{ product.name }}</a></h2>
+                <h2><a href="{% url 'product' product.id %}">{{ product.name }}</a></h2>
+                <h2><a href="{% url 'cart_adding' product.id %}">Add to cart</a></h2>
             </div>
         {% endfor %}
 
