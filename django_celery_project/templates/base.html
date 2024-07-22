@@ -52,9 +52,9 @@
             {% else %}
             <li><a href="{% url 'login_page' %}">Login</a></li>
             {% endif %}
-            <li><div>
+            <li><div class="cart-div">
               <a class="cart-link" href="">Cart</a>
-
+              <img class="cart" src="{% static 'images/cart_icon.jpg' %}" />
             </div></li>
             <li><a href="gallery.html">Gallery</a></li>
             <li><a href="contact.html">Contact</a></li>

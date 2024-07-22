@@ -730,6 +730,16 @@ aside.aside-left {
     flex-direction: row;
 }
 
+.cart-div img.cart {
+    float: left!important;
+}
+
+.cart-div a.cart-link {
+    float: right!important;
+}
+
+
+
 /* Margins */
 .margin-top {
   margin-top: 1.25rem !important;
@@ -2105,4 +2115,4 @@ video {
   nav.background-transparent.background-transparent-hightlight .s-12.l-2 {
     width: 100%;
   }
-}    
+}
