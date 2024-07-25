@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class = "products-display-parent">
+    {% for item in items %}
+            <div class="products-display-child">
+                <img src="{{ item.product.image.url }}"/>
+                <br>
+                <h2><a href="{% url 'product' item.product.id %}">{{ item.product.name }}</a></h2>
+            </div>
+    {% endfor %}
+</div>
+<div class="payment-div">
+    <p>{{ total_price }}</p>
+    <h2><a href ="">Proceed to payment</a></h2>
+</div>
+{% endblock content %}

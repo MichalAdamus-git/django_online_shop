@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'mainapp',
     'django_celery_results',
+#    'payments'
 ]
 
 MIDDLEWARE = [
@@ -132,7 +133,9 @@ Media_ROOT = os.path.join('BASE_DIR', 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-
+PAYMENT_HOST = '127.0.0.1:8000'
+#PAYMENT_USES_SSL = False
+#PAYMENT_MODEL = 'mainapp.models.Payment'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

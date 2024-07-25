@@ -726,8 +726,6 @@ aside.aside-left {
 .main-content {
     margin-left: 10px!important;
     margin-top: 10px!important;
-    display:flex;
-    flex-direction: row;
 }
 
 .cart-div img.cart {
@@ -738,8 +736,18 @@ aside.aside-left {
     float: right!important;
 }
 
+.products-display-parent {
+    display: flex;
+    flex-direction: row;
+}
 
+.products-display-child {
+    margin: 5px;
+}
 
+.payment-div {
+    width: 100%;
+}
 /* Margins */
 .margin-top {
   margin-top: 1.25rem !important;

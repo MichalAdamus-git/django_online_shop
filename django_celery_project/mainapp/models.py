@@ -1,6 +1,8 @@
 from django.db import models
 from PIL import Image
 from django.contrib.auth.models import User
+#from payments import PurchasedItem
+#from payments.models import BasePayment
 
 # Create your models here.
 
@@ -9,7 +11,7 @@ class Category(models.Model):
 
 
 class Cart(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     completed = models.BooleanField(default=False)
 
 
@@ -25,7 +27,7 @@ class Product(models.Model):
     def save(self):
         max_height = 500
         max_width = 600
-        if self.image != NONE:
+        if self.image != None:
             super().save()
             if self.height > max_height:
                 image_to_process = PIL.Image.open(self.image)
@@ -50,8 +52,30 @@ class Product(models.Model):
 class Cartitem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    quantity = models.IntegerField(default=0)
+    quantity = models.IntegerField(default=1)
+'''
+class Payment(BasePayment):
 
+    def get_failure_url(self) -> str:
+        # Return a URL where users are redirected after
+        # they fail to complete a payment:
+        return f"http://example.com/payments/{self.pk}/failure"
+
+    def get_success_url(self) -> str:
+        # Return a URL where users are redirected after
+        # they successfully complete a payment:
+        return f"http://example.com/payments/{self.pk}/success"
+
+    def get_purchased_items(self) -> Iterable[PurchasedItem]:
+        # Return items that will be included in this payment.
+        yield PurchasedItem(
+            name='The Hound of the Baskervilles',
+            sku='BSKV',
+            quantity=9,
+            price=Decimal(10),
+            currency='USD',
+        )
+'''
             
 
 
