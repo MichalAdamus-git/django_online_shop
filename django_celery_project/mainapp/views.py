@@ -23,8 +23,13 @@ def product(request, product_id):
     ## function to add to cart
     return render(request, 'product.html', context)
 
-def category(request, category_name):
-    pass
+def show_category(request, category_name):
+    category = Category.objects.get(category_name=category_name)
+    db_result = Product.objects.filter(category = category.id)
+    products = db_result.all()
+    context = {'products_all': products}
+    return render(request,'index.html',context)
+
 # show all products in this category.
 
 def login_page(request):
@@ -90,6 +95,7 @@ def add_to_cart(product: Product, cart: Cart):
         Cartitem.objects.create(product = product, cart = cart, quantity =1)
 
 
+@login_required(login_url='login_page')
 def add_product(request):
     product_form = ProductForm()
     context = {'form': product_form}
