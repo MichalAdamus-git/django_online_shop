@@ -49,6 +49,9 @@ class Product(models.Model):
                 super().save()
         else:
             super().save()
+
+    def __str__(self):
+        return self.id
 class Cartitem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

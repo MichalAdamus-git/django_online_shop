@@ -6,6 +6,7 @@ from .models import *
 from .forms import *
 from django.template.response import TemplateResponse
 from payments import get_payment_model, RedirectNeeded
+from django.core import serializers
 
 # Create your views here.
 
@@ -54,6 +55,7 @@ def logout_page(request):
 
 def cart_addition(request, product_id):
     product = Product.objects.get(pk=product_id)
+    product_data = product.__dict__
     if request.user.is_authenticated:
         user = request.user
         current_cart, completed = Cart.objects.get_or_create(user=user)
@@ -63,12 +65,12 @@ def cart_addition(request, product_id):
         if cart != None:
            pass
         else:
-            request.session['cart'] = []
-        current_cart = []
-        for i in cart:
-            current_cart.append(i)
-        current_cart.append(product)
-        request.session['cart'] = current_cart
+            request.sesion['cart'] = {}
+        product_ident = str(product_id)
+        prod_price = str(product.price)
+        request.session['cart'][product_ident] = {'product_id': product_ident, 'price': prod_price}
+        request.session.modified = True
+        print(request.session['cart'])
     return redirect('home')
 
 def add_to_cart(product: Product, cart: Cart):
@@ -99,6 +101,7 @@ def add_product(request):
 def cart_view(request):
     items_list = []
     total_price = 0
+    logged_in = False
     if request.user.is_authenticated:
         user = request.user
         cart, created = Cart.objects.get_or_create(user=user)
@@ -107,21 +110,24 @@ def cart_view(request):
             items_list.append(item)
             particular_price = item.product.price * item.quantity
             total_price += particular_price
+        logged_in = True
     else:
         cart = request.session.get('cart')
         if cart != None:
             items = []
-            for product in cart:
-                items.append(product)
+            for i in cart:
+                identity = cart[i]['product_id']
+                db_product = Product.objects.get(pk = identity)
+                items.append(db_product)
             for item in items:
                 items_list.append(item)
                 total_price += item.price
         else:
-            request.session['cart'] = []
+            request.session['cart'] = {}
             cart = request.session.get('cart')
             items = []
             total_price = 0
-    context = {'items': items_list, 'total_price': total_price}
+    context = {'items': items_list, 'total_price': total_price, 'not_guest_user' : logged_in}
     return render(request, 'cart.html', context)
 
 '''
