@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django.contrib.sites',
     'rest_framework',
+    'payments'
 ]
 
 MIDDLEWARE = [
@@ -140,7 +141,9 @@ Media_ROOT = os.path.join('BASE_DIR', 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 2
-
+PAYMENT_HOST = 'localhost:8000'
+PAYMENT_USES_SSL = False
+PAYMENT_MODEL = 'mainapp.payments.models.Payment'
 #CELERY SETTINGS
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'

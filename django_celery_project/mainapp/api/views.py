@@ -29,6 +29,12 @@ def categories(request):
     context = CategorySerializer(db_result, many = True)
     return Response(context.data)
 
+@api_view(['GET'])
+def get_category(request, category_name):
+    db_result = Category.objects.get(name = category_name)
+    context = CategorySerializer(db_result, many = False)
+    return Response(context.data)
+
 @api_view(['GET', 'DELETE'])
 @permission_classes([IsAdminUser])
 def delete_category(request, category_name):

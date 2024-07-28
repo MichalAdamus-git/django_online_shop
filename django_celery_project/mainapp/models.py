@@ -1,9 +1,10 @@
 from django.db import models
 from PIL import Image
 from django.contrib.auth.models import User
-#from payments import PurchasedItem
-#from payments.models import BasePayment
-
+from payments import PurchasedItem
+from payments.models import BasePayment
+from django.urls import reverse
+import views
 # Create your models here.
 
 class Category(models.Model):
@@ -56,18 +57,18 @@ class Cartitem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
-'''
+
 class Payment(BasePayment):
 
     def get_failure_url(self) -> str:
         # Return a URL where users are redirected after
         # they fail to complete a payment:
-        return f"http://example.com/payments/{self.pk}/failure"
+        return f"{reverse(views.fail)}/{self.pk}"
 
     def get_success_url(self) -> str:
         # Return a URL where users are redirected after
         # they successfully complete a payment:
-        return f"http://example.com/payments/{self.pk}/success"
+        return f"{reverse(views.success)}/{self.pk}"
 
     def get_purchased_items(self) -> Iterable[PurchasedItem]:
         # Return items that will be included in this payment.
@@ -78,8 +79,7 @@ class Payment(BasePayment):
             price=Decimal(10),
             currency='USD',
         )
-'''
-            
+
 
 
 
