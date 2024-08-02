@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('add_product', views.add_product, name="add_product"),
     path('cart_view', views.cart_view, name='cart_view' ),
     path('category/<str:category_name>', views.show_category, name='category'),
+    path('payments', include('payments.urls'))
 ]

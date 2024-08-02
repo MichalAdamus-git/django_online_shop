@@ -19,7 +19,7 @@ def get_product(request, product_name):
 @api_view(['GET', 'DELETE'])
 @permission_classes([IsAdminUser])
 def delete_product(request, product_name):
-    db_result = Preoduct.objects.get(name=product_name)
+    db_result = Product.objects.get(name=product_name)
     db_result.delete()
     return Response({})
 

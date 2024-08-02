@@ -70,7 +70,7 @@ def cart_addition(request, product_id):
         if cart != None:
            pass
         else:
-            request.sesion['cart'] = {}
+            request.session['cart'] = {}
         product_ident = str(product_id)
         prod_price = str(product.price)
         request.session['cart'][product_ident] = {'product_id': product_ident, 'price': prod_price}

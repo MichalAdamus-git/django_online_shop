@@ -141,9 +141,18 @@ Media_ROOT = os.path.join('BASE_DIR', 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SITE_ID = 2
-PAYMENT_HOST = 'localhost:8000'
+PAYMENT_HOST = '127.0.0.1:8000'
 PAYMENT_USES_SSL = False
-PAYMENT_MODEL = 'mainapp.payments.models.Payment'
+PAYMENT_MODEL = 'mainapp.Payment'
+PAYMENT_VARIANTS = {
+    'stripe': (
+        'payments.stripe.StripeProvider',
+        {
+            'secret_key': 'sk_test_51Pj4fzDWwb5hwIh2uL9aKwuJO3X9BUjO8WPEy2tF9XK39OLad0Rrb5Hrf0HO81n3ppkRsEnw0fgEYEGGuGQQeqhT00muZFz5kT',
+            'public_key': 'pk_test_51Pj4fzDWwb5hwIh2pwFEvw3TKciWI50Irf8zVa2iFvH1MYZGnTojT8gE7eVu1MxU5hHgcS6v7tJvWWJCEWQxXGNz005mADyEQu',
+        }
+    )
+}
 #CELERY SETTINGS
 
 CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
