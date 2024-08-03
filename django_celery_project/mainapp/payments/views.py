@@ -1,10 +1,15 @@
 from django.shortcuts import render, redirect, HttpResponse
-from mainapp.models import Payment
+from mainapp.models import Payment, Cart
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
+from django.urls import reverse
 from payments import get_payment_model, RedirectNeeded
+from django.conf import settings
 from ipware import get_client_ip
 from decimal import Decimal
+from mainapp.order import Order
+import stripe
+from django.conf import settings
 
 def success(request):
     pass
@@ -12,18 +17,12 @@ def success(request):
 def fail(request):
     pass
 
-def payment_details(request, payment_id):
-    payment = get_object_or_404(get_payment_model(), id=payment_id)
 
-    try:
-        form = payment.get_form(data=request.POST or None)
-    except RedirectNeeded as redirect_to:
-        return redirect(str(redirect_to))
-    context = {'form': form,'payment': payment}
-    return render(request, 'payment.html',context)
 
 def create_payment(request):
     total_price = 0
+    product_list = []
+    line_items = []
     if request.user.is_authenticated:
         user = request.user
         cart, created = Cart.objects.get_or_create(user=user)
@@ -31,6 +30,7 @@ def create_payment(request):
         for item in items:
             particular_price = item.product.price * item.quantity
             total_price += particular_price
+            product_list.append(item)
     else:
         cart = request.session.get('cart')
         if cart != None:
@@ -39,30 +39,35 @@ def create_payment(request):
                 identity = cart[i]['product_id']
                 db_product = Product.objects.get(pk=identity)
                 items.append(db_product)
+                product_list.append(db_product)
             for item in items:
                 total_price += item.price
         else:
             total_price = 0
-# get total price of products in cart. Get cart for logged in from db and for not logged in from session.
-    Payment = get_payment_model()
-    payment = Payment.objects.create(
-        variant='stripe',  # this is the variant from PAYMENT_VARIANTS
-        description='Checkout_purchase',
-        total=Decimal(total_price),
-        tax=Decimal(20),
-        currency='USD',
-        delivery=Decimal(10),
-        billing_first_name='Sherlock',
-        billing_last_name='Holmes',
-        billing_address_1='221B Baker Street',
-        billing_address_2='',
-        billing_city='London',
-        billing_postcode='NW1 6XE',
-        billing_country_code='GB',
-        billing_country_area='Greater London',
-        customer_ip_address=f'{get_client_ip(request)}',
-    )
-    return redirect('details', payment_id = payment.id)
 
+    if request.method == 'POST':
+        for product in product_list:
+            element = {'price_data':{
+                'currency': 'usd',
+                'product_data' : {
+                    'name': f'{product.product.name}',
+                },
+                'unit_amount_decimal' : f'{product.product.price}',
+            },
+            'quantity':1
+            }
+            line_items.append(element)
+        stripe.api_key = settings.STRIPE_SECRET_KEY_TEST
+        if len(line_items)>0:
+            payment_process = stripe.checkout.Session.create(
+                success_url='http://127.0.0.1:8000/payments/success',
+                line_items=line_items,
+                mode = 'payment',
+                cancel_url = 'http://127.0.0.1:8000/payments/fail'
+            )
+            return redirect(payment_process.url, code='303')
+        else:
+            return render(request,'dummy.html')
+    return render(request, 'payment.html')
 def dummy_view(request):
     return render(request, 'dummy.html')

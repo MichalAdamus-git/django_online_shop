@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
-<form action="{{ form.action }}" method="{{ form.method }}">
+<form action="{% url 'create_payment' %}" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <p><input type="submit" value="Proceed" /></p>
+    <h2>Click on this button to pay, Man</h2>
+    <p><button type="submit" href="{% url 'create_payment' %}">PAY Mann</button></p>
 </form>
 {% endblock content %}

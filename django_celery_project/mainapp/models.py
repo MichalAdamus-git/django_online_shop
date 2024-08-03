@@ -70,16 +70,16 @@ class Payment(BasePayment):
         # they successfully complete a payment:
         return path(f'127.0.0.1/sucess/{self.pk}')
 
-    def get_purchased_items(self, cartitem_list) -> Iterable[PurchasedItem]:
+    def get_purchased_items(self) -> Iterable[PurchasedItem]:
         # Return items that will be included in this payment.
-        for cartitem in cartitem_list:
-            yield PurchasedItem(
-                name= cartitem.product.name,
-                sku='BSKV',
-                quantity= cartitem.quantity,
-                price=Decimal(cartitem.product.price),
-                currency='USD',
+       yield PurchasedItem(
+        name = 'aristotle3',
+        sku = 'BSKV',
+        quantity = 9,
+        price = Decimal(10),
+        currency = 'USD',
         )
+
 
 
 
