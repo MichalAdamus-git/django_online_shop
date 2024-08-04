@@ -5,7 +5,6 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 from django.template.response import TemplateResponse
-from payments import get_payment_model, RedirectNeeded
 from django.core import serializers
 
 # Create your views here.

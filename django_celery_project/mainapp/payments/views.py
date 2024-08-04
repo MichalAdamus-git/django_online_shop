@@ -1,13 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
-from mainapp.models import Payment, Cart
+from mainapp.models import Cart
 from django.shortcuts import get_object_or_404, redirect
 from django.template.response import TemplateResponse
 from django.urls import reverse
-from payments import get_payment_model, RedirectNeeded
 from django.conf import settings
 from ipware import get_client_ip
 from decimal import Decimal
-from mainapp.order import Order
 import stripe
 from django.conf import settings
 
